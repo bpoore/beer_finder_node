@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{> head}}
+  </head>
+	<body>
+		<div class="container">
+			{{> navbar}}
+		    <div class='jumbotron'>
+				<div class='container'>
+					<h1>Beer Finder</h1>
+					<h3>Find where the beer you want is on tap</h3>
+					<p>This crowd sourced application shows you what beer is available where in real time. You, the users, add new beers at locations and remove what's not there anymore! This system ensures the most up-to-date data possible amongst all the locations currently serving beer and filling growlers.</p>
+				</div>
+			</div>
+			<form class="form-horizontal" action="/on_tap">
+				<fieldset class="form-group">
+					<legend>Update What's On Tap by Location:</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Location:</label>
+							<select class="col-sm-2 control-label" name="taphouse_id">
+								{{#each taphouses}}
+					 				<option value='{{this.id}}'>{{this.name}}</option>
+					 			{{/each}}
+							</select>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" class="btn btn-primary">
+						</div>
+					</div>
+				</fieldset>
+			</form>	
+			<form class="form-horizontal" method='POST' action='find_beer.php'>
+				<fieldset class="form-group">
+					<legend>Find Where a Beer is Right Now:</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Beer:</label>
+							<select class="col-sm-2 control-label" name="beer_id">
+								{{#each beers}}
+					 				<option value='{{this.id}}'>{{this.breweryName}} - {{this.name}}</option>
+					 			{{/each}}
+					 		</select>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" class="btn btn-primary">
+						</div>
+					</div>
+				</fieldset>
+			</form>	
+		</div>
+	</body>
+</html>

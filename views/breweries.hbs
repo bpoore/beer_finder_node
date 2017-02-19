@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{> head}}
+  </head>
+  <body>
+    <div class="container">    
+      {{> navbar}}
+      <h1>Breweries</h1>
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+        </tr>
+        <tbody id='brewery_list'>
+          {{#each breweries}}
+          <tr>
+            <td value='{{this.id}}'>{{this.name}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <form class="form-horizontal" id="add_brewery">
+        <fieldset class="form-group">
+          <legend>Add A Brewery</legend>
+          <div class='form-group'>
+            <label class="col-sm-2 control-label">Name:</label>
+            <div class="col-sm-10">
+              <input type='text' name='name'>
+            </div>
+          </div>
+          <div class='form-group'>
+            <label class="col-sm-2 control-label">City:</label>
+            <div class="col-sm-10">
+              <input type='text' name='city'>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">State:</label>
+            <div class="col-sm-10">
+              <input type='text' name='state'>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-primary" id="submitBrewery">Submit</button>
+            </div>
+          </div>
+        </fieldset>
+      </form> 
+    </div>
+  </body>
+</html>  

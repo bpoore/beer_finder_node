@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <title>Beer Finder</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-      <script src='/js/app.js'></script>
-    </head>
-    <body>
-      <div class="container">    
+    {{> head}}
+  </head>
+  <body>
+    <div class="container">    
       {{> navbar}}
       <h1>Taphouses</h1>
       <table class="table table-striped">
@@ -23,7 +17,18 @@
           <th>Close</th>
           <th>Update</th>
         </tr>
-        <tbody id="taphouse_list"></tbody>
+        <tbody id="taphouse_list">
+          {{#each taphouses}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.street_address}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{this.open}}</td>
+            <td>{{this.close}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
       </table>
       <form class="form-horizontal" method='GET' action='add_taphouse' id="add_taphouse">
         <fieldset class="form-group">

@@ -7,20 +7,45 @@ $(document).ready(function () {
 	$("#submitTaphouse").on('click', function (event) {
 		event.preventDefault();
 		var name = $('#add_taphouse').find('input[name="name"]').val();
-		console.log(name);
-		console.log(typeof(name));
-		console.log(name.length);
 		var street_address = $('#add_taphouse').find('input[name="street_address"]').val();
-		console.log(street_address);
 		var city = $('#add_taphouse').find('input[name="city"]').val();
-		console.log(city);
 		var state = $('#add_taphouse').find('input[name="state"]').val();
-		console.log(state);
 		var zip = $('#add_taphouse').find('input[name="zip"]').val();
-		console.log(zip);
 		var queryString = `?name=${name}&street_address=${street_address}&city=${city}&state=${state}&zip=${zip}`;
+		$.get(serverURL + '/taphouses' + queryString)
+			.done(window.location = serverURL + '/taphouses');
+	});
+
+	$("#submitBrewery").on('click', function(event) {
+		event.preventDefault();
+		var name = $('#add_brewery').find('input[name="name"]').val();
+		var city = $('#add_brewery').find('input[name="city"]').val();
+		var state = $('#add_brewery').find('input[name="state"]').val();
+		var queryString = `?name=${name}&city=${city}&state=${state}`;
+		$.get(serverURL + '/breweries' + queryString)
+			.done(window.location = serverURL + '/breweries');
+	});
+
+	$("#submitBeer").on('click', function(event) {
+		event.preventDefault();
+		var name = $('#add_beer').find('input[name="name"]').val();
+		var type = $('#add_beer').find('input[name="type"]').val();
+		var alc_bv = $('#add_beer').find('input[name="alc_bv"]').val();
+		var brewery = $('#add_beer').find('#brewery option:selected').val();
+		var queryString = `?name=${name}&type=${type}&alc_bv=${alc_bv}&brewery=${brewery}`;
+		$.get(serverURL + '/beers' + queryString)
+			.done(window.location = serverURL + '/beers');
+	});
+
+	$("#submitBeerToLoc").on('click', function(event) {
+		event.preventDefault();
+		var taphouse_id = $('#addToLocation').find('input[name="taphouse_id"]').val();
+		var beer_id = $('#addToLocation').find('#beer option:selected').val();
+		var pint = $('#addToLocation').find('input[name="pintPrice"]').val();
+		var growler = $('#addToLocation').find('input[name="growlerPrice"]').val();
+		var queryString = `?taphouse_id=${taphouse_id}&beer_id=${beer_id}&pint=${pint}&growler=${growler}`;
 		console.log(queryString);
-		$.get(serverURL + '/add_taphouse' + queryString);
-		//	.done(window.location = serverURL + userType);
+		$.get(serverURL + '/on_tap' + queryString)
+			.done(window.location = `${serverURL}/on_tap?taphouse_id=${taphouse_id}`);
 	});
 });

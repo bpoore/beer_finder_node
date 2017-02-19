@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	{{> head}}
+  </head>
+  <body>
+  	<div class="container">    
+  		{{> navbar}}
+		<h1>Beers</h1>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>% Alcohol</th>
+				<th>Brewery</th>
+			</tr>
+			<tbody id='beer_list'>
+				{{#each beers}}
+          		<tr>
+            		<td value='{{this.id}}'>{{this.name}}</td>
+            		<td>{{this.type}}</td>
+            		<td>{{this.alc_bv}}</td>
+            		<td>{{this.breweryName}}</td>
+          		</tr>
+          		{{/each}}
+			</tbody>
+		</table>
+		<form class="form-horizontal" id='add_beer'>
+			<fieldset class="form-group">
+				<legend>Add A Beer</legend>
+				<div class='form-group'>
+					<label class="col-sm-2 control-label">Name:</label>
+					<div class="col-sm-10">
+						<input type='text' name='name'>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class="col-sm-2 control-label">Type:</label>
+					<div class="col-sm-10">
+						<input type='text' name='type'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">% Alcohol by Volume:</label>
+					<div class="col-sm-10">
+						<input type='number' name='alc_bv'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Brewery:</label>
+					<select class="col-sm-2 control-label" id="brewery">
+						{{#each breweries}}
+							<option value='{{this.id}}'>{{this.name}}</option>
+						{{/each}}		
+					</select>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button class="btn btn-primary" id='submitBeer'>Submit</button>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class="col-sm-2 control-label">Brewery not listed? </label>
+						<div class="col-sm-10">
+							<a href='/breweries' class='btn btn-info' role='button'>Add Brewery Here</a>
+						</div>
+				</div>
+			</fieldset>
+		</form>	
+		</div>
+	</body>
+</html>	

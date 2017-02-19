@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{> head}}
+  </head>
+  <body>
+    <div class="container">
+    {{> navbar}}
+		   <h1>Now on tap at {{taphouse.name}}</h1>
+      <table class="table table-striped" id="on_tap">
+        <tr>
+          <th>Brewery</th>
+          <th>Beer</th>
+          <th>Pint Price</th>
+          <th>Grower Price</th>
+          <th>Remove From Location</th> 
+        </tr>
+        <tbody>  
+          {{#if beers_by_taphouse}}
+          {{#each beers_by_taphouse}}
+            <tr>
+              <td>{{this.breweryName}}</td>
+              <td>{{this.name}}</td>
+              <td>{{this.pint}}</td>
+              <td>{{this.growler}}</td>
+              <td>
+                <form method='post' action='delete_beer_at_location.php'>
+                <input type='hidden' name='beer_on_tap_id' value='". $id . "'>  
+                <input type='submit' value='Remove' class='btn btn-danger'>
+                </form>
+              </td>
+            </tr>
+          {{/each}}
+          {{else}} 
+            <h3 style='color:red'>No results</h3>
+          {{/if}}
+        </tbody>
+      </table>
+       <form class="form-horizontal" id="addToLocation">
+          <fieldset class="form-group">
+            <legend>Add a beer to this location</legend>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Beer:</label>
+                <select class="col-sm-2 control-label" id="beer">
+                {{#each beers}}        
+                  <option value='{{this.id}}'>{{this.breweryName}} - {{this.name}}</option>
+                {{/each }}
+              </select>
+            </div>            
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Pint Price: </label>
+              <div class="col-sm-10">
+                  <input type='number' name="pintPrice">
+              </div>
+            </div>       
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Growler Price: </label>
+                <div class="col-sm-10">
+                  <input type='number' name="growlerPrice">
+                </div>
+            </div>       
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="taphouse_id" value='{{taphouse.id}}'>
+                <input type="submit" id="submitBeerToLoc" class="btn btn-primary">
+              </div>
+            </div> 
+            <div class='form-group'>
+              <label class="col-sm-2 control-label">Beer not available in list? </label>
+                <div class="col-sm-10">
+                  <a href='/beers' class='btn btn-info' role='button'>Add Beer Here</a>
+                </div>
+            </div>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+</html> 
