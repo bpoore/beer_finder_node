@@ -78,15 +78,24 @@ app.get('/on_tap', function(req, res) {
     db.addBeerToTaphouse(req.query.taphouse_id, req.query.beer_id, req.query.pint, req.query.growler);
   }
 
-  db.getTaphouse(req.query.taphouse_id).then(function(taphouse) {
-    db.getBeersByTaphouse(req.query.taphouse_id).then(function(beers_by_taphouse) {
-      db.getBeers().then(function(beers) {
-        context.beers = beers;
-        context.beers_by_taphouse = beers_by_taphouse;
-        context.taphouse = taphouse[0];
-        res.render('now_on_tap.hbs', context);
-      });
+  db.getBeersByTaphouse(req.query.taphouse_id).then(function(beers_by_taphouse) {
+    db.getBeers().then(function(beers) {
+      context.beers = beers;
+      context.beers_by_taphouse = beers_by_taphouse;
+      context.taphouse = beers_by_taphouse[0];
+      res.render('now_on_tap.hbs', context);
     });
+  });
+});
+
+app.get('/find_beer', function(req, res) {
+  context = {};
+
+  db.getBeerLocations(req.query.beer_id).then(function(locations) {
+    console.log(locations);
+    context.beer = locations[0];
+    context.locations = locations;
+    res.render('find_beer.hbs', context)
   });
 });
 

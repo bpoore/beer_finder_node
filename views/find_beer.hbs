@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{> head}}
+  </head>
+  <body>
+    <div class="container">
+      {{> navbar}}
+      <h1>{{beer.breweryName}} - {{beer.beerName}} is now at:</h1>
+      <body onload="initMap()">
+    	<div class="container">
+        <table class="table table-striped">
+        {{#if locations}}
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>State</th>
+          </tr>
+          <tbody>  
+            {{#each locations}}          
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.city}}</td>
+              <td>{{this.state}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        {{else}}
+          <h3 style='color:red'>No results</h3>
+        {{/if}}
+          </table>
+      </div>
+    </body>
+</html>  

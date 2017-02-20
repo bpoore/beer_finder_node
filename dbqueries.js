@@ -118,7 +118,7 @@ exports.getBeers = function() {
 
 exports.getBeersByTaphouse = function(taphouse) {
   return new Promise(function(resolve, reject) {
-    pool.query(SQL`SELECT brewery.name as breweryName, beer.name, beer_on_tap.pintPrice, beer_on_tap.growlerPrice, beer_on_tap.id FROM brewery INNER JOIN beer ON brewery.id=beer.brewery INNER JOIN beer_on_tap ON beer.id=beer_on_tap.beer_id INNER JOIN taphouse ON taphouse.id=beer_on_tap.tap_id WHERE taphouse.id=${taphouse}`, function(err, results, fields) {
+    pool.query(SQL`SELECT taphouse.name as taphouseName, brewery.name as breweryName, beer.name, beer_on_tap.pintPrice, beer_on_tap.growlerPrice, beer_on_tap.id FROM brewery INNER JOIN beer ON brewery.id=beer.brewery INNER JOIN beer_on_tap ON beer.id=beer_on_tap.beer_id INNER JOIN taphouse ON taphouse.id=beer_on_tap.tap_id WHERE taphouse.id=${taphouse}`, function(err, results, fields) {
       if (err) {
         console.log(err);
         console.log("Error getting beers by taphouse.");
@@ -139,3 +139,15 @@ exports.addBeerToTaphouse = function(tap_id, beer_id, pintPrice, growlerPrice) {
   });
 };
 
+exports.getBeerLocations = function(beer) {
+  return new Promise(function(resolve, reject) {
+    pool.query(SQL`SELECT brewery.name as breweryName, beer.name as beerName, taphouse.name, taphouse.city, taphouse.state FROM taphouse INNER JOIN beer_on_tap ON taphouse.id=beer_on_tap.tap_id INNER JOIN beer ON beer.id=beer_on_tap.beer_id INNER JOIN brewery ON beer.brewery=brewery.id WHERE beer.id=${beer}`, function(err, results, fields) {
+      if (err) {
+        console.log(err);
+        console.log("Error getting beer locations.");
+        return;
+      }
+      resolve(results);
+    });
+  });
+};
