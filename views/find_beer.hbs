@@ -6,11 +6,11 @@
   <body>
     <div class="container">
       {{> navbar}}
+      {{#if locations}}
       <h1>{{beer.breweryName}} - {{beer.beerName}} is now at:</h1>
       <body onload="initMap()">
     	<div class="container">
         <table class="table table-striped">
-        {{#if locations}}
           <tr>
             <th>Name</th>
             <th>City</th>

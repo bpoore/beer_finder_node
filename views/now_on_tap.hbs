@@ -6,7 +6,8 @@
   <body>
     <div class="container">
     {{> navbar}}
-		   <h1>Now on tap at {{taphouse.taphouseName}}</h1>
+      {{#if beers_by_taphouse}}
+		  <h1>Now on tap at {{taphouse.taphouseName}}</h1>
       <table class="table table-striped" id="on_tap">
         <tr>
           <th>Brewery</th>
@@ -16,7 +17,6 @@
           <th>Remove From Location</th> 
         </tr>
         <tbody>  
-          {{#if beers_by_taphouse}}
           {{#each beers_by_taphouse}}
             <tr>
               <td>{{this.breweryName}}</td>
