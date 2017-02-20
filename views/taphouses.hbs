@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {{> head}}
-  </head>
-  <body>
-    <div class="container">    
-      {{> navbar}}
-      <h1>Taphouses</h1>
-      <table class="table table-striped">
-        <tr>
-          <th>Name</th>
-          <th>Street Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Open</th>
-          <th>Close</th>
-          <th>Update</th>
-        </tr>
-        <tbody id="taphouse_list">
-          {{#each taphouses}}
+
+<head>
+  {{> head}}
+</head>
+
+<body>
+  <div class="container">
+    {{> navbar}}
+    <h1>Taphouses</h1>
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Street Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Open</th>
+        <th>Close</th>
+        <th>Update</th>
+      </tr>
+      <tbody id="taphouse_list">
+        {{#each taphouses}}
           <tr>
             <td>{{this.name}}</td>
             <td>{{this.street_address}}</td>
@@ -27,147 +29,152 @@
             <td>{{this.open}}</td>
             <td>{{this.close}}</td>
           </tr>
-          {{/each}}
-        </tbody>
-      </table>
-      <form class="form-horizontal" method='GET' action='add_taphouse' id="add_taphouse">
-        <fieldset class="form-group">
-          <legend>Add A Taphouse</legend>
-          <div class='form-group'>
-            <label class="col-sm-2 control-label">Name:</label>
+        {{/each}}
+      </tbody>
+    </table>
+    <form class="form-horizontal" method='GET' action='add_taphouse' id="add_taphouse">
+      <fieldset class="form-group">
+        <legend>Add A Taphouse</legend>
+        <div class='form-group'>
+          <label class="col-sm-2 control-label">Name:</label>
+          <div class="col-sm-10">
+            <input type='text' name='name'>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Street Address:</label>
+          <div class="col-sm-10">
+            <input type='text' name='street_address'>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class="col-sm-2 control-label">City:</label>
+          <div class="col-sm-10">
+            <input type='text' name='city'>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">State:</label>
+          <div class="col-sm-2">
+            <select class="form-control" id="state" name="state">
+              <option value="">N/A</option>
+              <option value="AK">Alaska</option>
+              <option value="AL">Alabama</option>
+              <option value="AR">Arkansas</option>
+              <option value="AZ">Arizona</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DC">District of Columbia</option>
+              <option value="DE">Delaware</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="IA">Iowa</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MD">Maryland</option>
+              <option value="ME">Maine</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MO">Missouri</option>
+              <option value="MS">Mississippi</option>
+              <option value="MT">Montana</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="NE">Nebraska</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NV">Nevada</option>
+              <option value="NY">New York</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR" selected="selected">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="PR">Puerto Rico</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VA">Virginia</option>
+              <option value="VT">Vermont</option>
+              <option value="WA">Washington</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WV">West Virginia</option>
+              <option value="WY">Wyoming</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Zip:</label>
+          <div class="col-sm-10">
+            <input type='number' name='zip'>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Open:</label>
+          <select class="col-sm-2 control-label" name="open" id='open'>
+						<option value="1">1:00</label>
+            <option value="2">2:00</label>
+            <option value="3">3:00</label>
+            <option value="4">4:00</label>
+            <option value="5">5:00</label>
+            <option value="6">6:00</label>
+            <option value="7">7:00</label>
+            <option value="8">8:00</label>
+            <option value="9">9:00</label>
+            <option value="10">10:00</label>
+            <option value="11">11:00</label>
+            <option value="12">12:00</label>
+          </select>
+          <label class="col-sm-2 control-label">
             <div class="col-sm-10">
-              <input type='text' name='name'>
+              <label>
+                <input type="radio" name="open_am_pm" value="AM" checked>AM</label>
+              <label>
+                <input type="radio" name="open_am_pm" value="PM">PM</label>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Street Address:</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Close:</label>
+          <select class="col-sm-2 control-label" name="close">
+            <option value="1">1:00</label>
+            <option value="2">2:00</label>
+            <option value="3">3:00</label>
+            <option value="4">4:00</label>
+            <option value="5">5:00</label>
+            <option value="6">6:00</label>
+            <option value="7">7:00</label>
+            <option value="8">8:00</label>
+            <option value="9">9:00</label>
+            <option value="10">10:00</label>
+            <option value="11">11:00</label>
+            <option value="12">12:00</label>
+          </select>
+          <label class="col-sm-2 control-label">
             <div class="col-sm-10">
-              <input type='text' name='street_address'>
+              <label>
+                <input type="radio" name="close_am_pm" value="AM" checked>AM</label>
+              <label>
+                <input type="radio" name="close_am_pm" value="PM">PM</label>
             </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-primary" id="submitTaphouse">Submit</button>
           </div>
-          <div class='form-group'>
-            <label class="col-sm-2 control-label">City:</label>
-            <div class="col-sm-10">
-              <input type='text' name='city'>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">State:</label>
-              <div class="col-sm-2">
-                <select class="form-control" id="state" name="state">
-                  <option value="">N/A</option>
-                  <option value="AK">Alaska</option>
-                  <option value="AL">Alabama</option>
-                  <option value="AR">Arkansas</option>
-                  <option value="AZ">Arizona</option>
-                  <option value="CA">California</option>
-                  <option value="CO">Colorado</option>
-                  <option value="CT">Connecticut</option>
-                  <option value="DC">District of Columbia</option>
-                  <option value="DE">Delaware</option>
-                  <option value="FL">Florida</option>
-                  <option value="GA">Georgia</option>
-                  <option value="HI">Hawaii</option>
-                  <option value="IA">Iowa</option>
-                  <option value="ID">Idaho</option>
-                  <option value="IL">Illinois</option>
-                  <option value="IN">Indiana</option>
-                  <option value="KS">Kansas</option>
-                  <option value="KY">Kentucky</option>
-                  <option value="LA">Louisiana</option>
-                  <option value="MA">Massachusetts</option>
-                  <option value="MD">Maryland</option>
-                  <option value="ME">Maine</option>
-                  <option value="MI">Michigan</option>
-                  <option value="MN">Minnesota</option>
-                  <option value="MO">Missouri</option>
-                  <option value="MS">Mississippi</option>
-                  <option value="MT">Montana</option>
-                  <option value="NC">North Carolina</option>
-                  <option value="ND">North Dakota</option>
-                  <option value="NE">Nebraska</option>
-                  <option value="NH">New Hampshire</option>
-                  <option value="NJ">New Jersey</option>
-                  <option value="NM">New Mexico</option>
-                  <option value="NV">Nevada</option>
-                  <option value="NY">New York</option>
-                  <option value="OH">Ohio</option>
-                  <option value="OK">Oklahoma</option>
-                  <option value="OR" selected="selected">Oregon</option>
-                  <option value="PA">Pennsylvania</option>
-                  <option value="PR">Puerto Rico</option>
-                  <option value="RI">Rhode Island</option>
-                  <option value="SC">South Carolina</option>
-                  <option value="SD">South Dakota</option>
-                  <option value="TN">Tennessee</option>
-                  <option value="TX">Texas</option>
-                  <option value="UT">Utah</option>
-                  <option value="VA">Virginia</option>
-                  <option value="VT">Vermont</option>
-                  <option value="WA">Washington</option>
-                  <option value="WI">Wisconsin</option>
-                  <option value="WV">West Virginia</option>
-                  <option value="WY">Wyoming</option>
-                </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Zip:</label>
-            <div class="col-sm-10">
-              <input type='number' name='zip'>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Open:</label>
-              <select class="col-sm-2 control-label" name="open" id='open'>
-                <option value="1">1:00</label>
-                <option value="2">2:00</label>
-                <option value="3">3:00</label>
-                <option value="4">4:00</label>
-                <option value="5">5:00</label>
-                <option value="6">6:00</label>
-                <option value="7">7:00</label>
-                <option value="8">8:00</label>
-                <option value="9">9:00</label>
-                <option value="10">10:00</label>
-                <option value="11">11:00</label>
-                <option value="12">12:00</label>
-              </select>
-              <label class="col-sm-2 control-label">
-                <div class="col-sm-10">
-                  <label><input type="radio" name="open_am_pm" value="AM" checked>AM</label>
-                  <label><input type="radio" name="open_am_pm" value="PM">PM</label>
-                </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Close:</label>
-              <select class="col-sm-2 control-label" name="close">
-                <option value="1">1:00</label>
-                <option value="2">2:00</label>
-                <option value="3">3:00</label>
-                <option value="4">4:00</label>
-                <option value="5">5:00</label>
-                <option value="6">6:00</label>
-                <option value="7">7:00</label>
-                <option value="8">8:00</label>
-                <option value="9">9:00</label>
-                <option value="10">10:00</label>
-                <option value="11">11:00</label>
-                <option value="12">12:00</label>
-              </select>
-              <label class="col-sm-2 control-label">
-                <div class="col-sm-10">
-                  <label><input type="radio" name="close_am_pm" value="AM" checked>AM</label>
-                  <label><input type="radio" name="close_am_pm" value="PM">PM</label>
-                </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-primary" id="submitTaphouse">Submit</button>
-            </div>
-          </div>
-        </fieldset>
-      </form> 
-    </div>
-  </body>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</body>
+
 </html>
