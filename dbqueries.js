@@ -5,7 +5,7 @@ var pool = mysql.createPool({
   connectionLimit : 10,
   host            : 'us-cdbr-iron-east-04.cleardb.net',
   user            : 'bbef480f7baaba',
-  password        :  '9966f809e9432ad',
+  password        : '9966f809e9432ad',
   database        : 'heroku_643b9f3b4adb7e5'
 });
 
@@ -27,12 +27,15 @@ exports.insertTaphouse = function(name, street_address, city, state, zip) {
 		zip = undefined;
 	}
 
-	pool.query(SQL`INSERT INTO taphouse (name, street_address, city, state, zip) VALUES (${name}, ${street_address}, ${city}, ${state}, ${zip})`, function(err, results, fields) {
-  	if (err) {
-  		console.log(err);
-    	console.log("Error inserting into taphouse table.");
-    	return;
-  	}
+  return new Promise(function(resolve, reject) {
+	 pool.query(SQL`INSERT INTO taphouse (name, street_address, city, state, zip) VALUES (${name}, ${street_address}, ${city}, ${state}, ${zip})`, function(err, results, fields) {
+  	 if (err) {
+  		  console.log(err);
+    	 console.log("Error inserting into taphouse table.");
+      	return;
+  	 }
+      resolve(results);
+    });
   });
 };
 
@@ -71,12 +74,15 @@ exports.insertBrewery = function(name, city, state) {
     state = undefined;
   };
 
-  pool.query(SQL`INSERT INTO brewery (name, city, state) VALUES (${name}, ${city}, ${state})`, function(err, results, fields) {
-    if (err) {
-      console.log(err);
-      console.log("Error inserting into brewery table.");
-      return;
-    }
+  return new Promise(function(resolve, reject) {
+    pool.query(SQL`INSERT INTO brewery (name, city, state) VALUES (${name}, ${city}, ${state})`, function(err, results, fields) {
+      if (err) {
+        console.log(err);
+        console.log("Error inserting into brewery table.");
+        return;
+      }
+      resolve(results);
+    });
   });
 };
 
@@ -94,12 +100,15 @@ exports.getBreweries = function() {
 };
 
 exports.insertBeer = function(name, type, alc_bv, brewery) {
-  pool.query(SQL`INSERT INTO beer (name, type, alc_bv, brewery) VALUES (${name}, ${type}, ${alc_bv}, ${brewery})`, function(err, results, fields) {
-    if (err) {
-      console.log(err);
-      console.log("Error inserting into beer table.");
-      return;
-    }
+  return new Promise(function(resolve, reject) {
+    pool.query(SQL`INSERT INTO beer (name, type, alc_bv, brewery) VALUES (${name}, ${type}, ${alc_bv}, ${brewery})`, function(err, results, fields) {
+      if (err) {
+        console.log(err);
+        console.log("Error inserting into beer table.");
+        return;
+      }
+      resolve(results);
+    });
   });
 };
 

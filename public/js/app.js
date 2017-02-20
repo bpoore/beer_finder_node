@@ -9,7 +9,7 @@ $(document).ready(function () {
 		var name = $('#add_taphouse').find('input[name="name"]').val();
 		var street_address = $('#add_taphouse').find('input[name="street_address"]').val();
 		var city = $('#add_taphouse').find('input[name="city"]').val();
-		var state = $('#add_taphouse').find('input[name="state"]').val();
+		var state = $('#add_taphouse').find('#state option:selected').val();
 		var zip = $('#add_taphouse').find('input[name="zip"]').val();
 		var queryString = `?name=${name}&street_address=${street_address}&city=${city}&state=${state}&zip=${zip}`;
 		$.get(serverURL + '/taphouses' + queryString)
@@ -23,7 +23,7 @@ $(document).ready(function () {
 		} else {
 			var name = $('#add_brewery').find('input[name="name"]').val();
 			var city = $('#add_brewery').find('input[name="city"]').val();
-			var state = $('#add_brewery').find('input[name="state"]').val();
+			var state = $('#add_brewery').find('#state option:selected').val();
 			var queryString = `?name=${name}&city=${city}&state=${state}`;
 			$.get(serverURL + '/breweries' + queryString)
 				.done(window.location = serverURL + '/breweries');

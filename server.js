@@ -30,45 +30,61 @@ app.get('/', function(req, res) {
 
 app.get('/taphouses', function(req, res) {
   context = {};
-
   if (req.query.name != undefined) {
-    db.insertTaphouse(req.query.name, req.query.street_address, req.query.city, req.query.state, req.query.zip);
+    db.insertTaphouse(req.query.name, req.query.street_address, req.query.city, req.query.state, req.query.zip).then(function() {
+        db.getTaphouses().then(function(taphouses) {
+        context.taphouses = taphouses;
+        res.render('taphouses.hbs', context);
+      });
+    });
+  } else {
+    db.getTaphouses().then(function(taphouses) {
+      context.taphouses = taphouses;
+      res.render('taphouses.hbs', context);
+    });
   }
-
-  db.getTaphouses().then(function(results) {
-    context.taphouses = results;
-    res.render('taphouses.hbs', context);
-  });
 });
 
 app.get('/breweries', function(req, res) {
   context = {};
 
   if (req.query.name != undefined) {
-    db.insertBrewery(req.query.name, req.query.city, req.query.state);
+    db.insertBrewery(req.query.name, req.query.city, req.query.state).then(function() {
+      db.getBreweries().then(function(results) {
+        context.breweries = results;
+        res.render('breweries.hbs', context);
+      });
+    });
+  } else {
+    db.getBreweries().then(function(results) {
+      context.breweries = results;
+      res.render('breweries.hbs', context);
+    });
   }
-
-  db.getBreweries().then(function(results) {
-    console.log("HERE");
-    context.breweries = results;
-    res.render('breweries.hbs', context);
-  });
 });
 
 app.get('/beers', function(req, res) {
   context = {}
 
   if (req.query.name != undefined) {
-    db.insertBeer(req.query.name, req.query.type, req.query.alc_bv, req.query.brewery);
-  }
-
-  db.getBreweries().then(function(breweries) {
-    db.getBeers().then(function(beers) {
-      context.beers = beers;
-      context.breweries = breweries;
-      res.render('beers.hbs', context);
+    db.insertBeer(req.query.name, req.query.type, req.query.alc_bv, req.query.brewery).then(function() {
+      db.getBreweries().then(function(breweries) {
+        db.getBeers().then(function(beers) {
+          context.beers = beers;
+          context.breweries = breweries;
+          res.render('beers.hbs', context);
+        });
+      });
     });
-  });
+  } else {
+    db.getBreweries().then(function(breweries) {
+      db.getBeers().then(function(beers) {
+        context.beers = beers;
+        context.breweries = breweries;
+        res.render('beers.hbs', context);
+      });
+    });
+  }
 });
 
 app.get('/on_tap', function(req, res) {
