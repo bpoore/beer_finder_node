@@ -7,7 +7,7 @@
     <div class="container">
     {{> navbar}}
       {{#if beers_by_taphouse}}
-		  <h1>Now on tap at {{taphouse.taphouseName}}</h1>
+		  <h1>Now on tap at {{taphouse.name}}</h1>
       <table class="table table-striped" id="on_tap">
         <tr>
           <th>Brewery</th>
@@ -21,12 +21,12 @@
             <tr>
               <td>{{this.breweryName}}</td>
               <td>{{this.name}}</td>
-              <td>{{this.pint}}</td>
-              <td>{{this.growler}}</td>
+              <td>{{this.pintPrice}}</td>
+              <td>{{this.growlerPrice}}</td>
               <td>
-                <form method='post' action='delete_beer_at_location.php'>
-                <input type='hidden' name='beer_on_tap_id' value='". $id . "'>  
-                <input type='submit' value='Remove' class='btn btn-danger'>
+                <form id="removeBeer">
+                  <input type='hidden' name="taphouse_id" value='{{this.taphouseId}}'>  
+                  <button id="{{this.id}}" class='btn btn-danger'>Delete</button>
                 </form>
               </td>
             </tr>

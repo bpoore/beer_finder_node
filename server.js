@@ -74,16 +74,22 @@ app.get('/beers', function(req, res) {
 app.get('/on_tap', function(req, res) {
   context = {};
 
+  if (req.query.remove_beer != undefined) {
+    db.removeBeerFromTaphouse(req.query.remove_beer);
+  }
+
   if (req.query.beer_id != undefined) {
     db.addBeerToTaphouse(req.query.taphouse_id, req.query.beer_id, req.query.pint, req.query.growler);
   }
 
   db.getBeersByTaphouse(req.query.taphouse_id).then(function(beers_by_taphouse) {
-    db.getBeers().then(function(beers) {
-      context.beers = beers;
-      context.beers_by_taphouse = beers_by_taphouse;
-      context.taphouse = beers_by_taphouse[0];
-      res.render('now_on_tap.hbs', context);
+    db.getTaphouse(req.query.taphouse_id).then(function(taphouse) {         // Seemed like an extra query but necessary when no beers on tap at location
+      db.getBeers().then(function(beers) {
+        context.beers = beers;
+        context.beers_by_taphouse = beers_by_taphouse;
+        context.taphouse = taphouse[0];
+        res.render('now_on_tap.hbs', context);
+      });
     });
   });
 });
@@ -92,7 +98,6 @@ app.get('/find_beer', function(req, res) {
   context = {};
 
   db.getBeerLocations(req.query.beer_id).then(function(locations) {
-    console.log(locations);
     context.beer = locations[0];
     context.locations = locations;
     res.render('find_beer.hbs', context)

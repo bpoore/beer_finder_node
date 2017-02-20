@@ -19,7 +19,11 @@
           		<tr>
             		<td value='{{this.id}}'>{{this.name}}</td>
             		<td>{{this.type}}</td>
+            	{{#if this.alc_bv}}
             		<td>{{this.alc_bv}}</td>
+            	{{else}}
+            		<td>N/A</td>
+            	{{/if}}
             		<td>{{this.breweryName}}</td>
           		</tr>
           		{{/each}}
