@@ -172,7 +172,7 @@ exports.getBeerLocations = function(beer) {
 
 exports.getAllBeerLocations = function() {
     return new Promise(function(resolve, reject) {
-        pool.query(SQL `SELECT * FROM beer_on_tap`, function(err, results, fields) {
+        pool.query(SQL `SELECT beer.name as beerName, brewery.name as breweryName, beer_id, tap_id FROM beer_on_tap INNER JOIN beer ON beer_on_tap.beer_id=beer.id INNER JOIN brewery ON beer.brewery=brewery.id`, function(err, results, fields) {
             if (err) {
                 console.log(err);
                 console.log("Error getting beer locations.");

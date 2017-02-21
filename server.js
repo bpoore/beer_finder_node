@@ -11,18 +11,26 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
+
 //Renders landing page for app
 app.get('/', function(req, res) {
     context = {};
+
+    var markers = [{
+        lat: 45.523062,
+        lng: -122.676482, 
+        name: "Name",
+        address: "Address"
+      }];
+
     db.getAllBeerLocations().then(function(beers_by_taphouse) {
-        console.log(beers_by_taphouse);
-        console.log(JSON.stringify(beers_by_taphouse));
         db.getTaphouses().then(function(taphouses) {
             db.getBeers().then(function(beers) {
                 context.beers = beers;
                 context.taphouses = taphouses;
                 context.beer = beers[0];
                 context.beerByLoc = JSON.stringify(beers_by_taphouse);
+                context.taps = JSON.stringify(taphouses);
                 res.render('home.hbs', context);
             });
         });
