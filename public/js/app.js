@@ -6,13 +6,18 @@ console.log("serverURL = ", serverURL);
 $(document).ready(function() {
     $("#submitTaphouse").on('click', function(event) {
         event.preventDefault();
-        var name = $('#add_taphouse').find('input[name="name"]').val();
-        var street_address = $('#add_taphouse').find('input[name="street_address"]').val();
-        var city = $('#add_taphouse').find('input[name="city"]').val();
-        var state = $('#add_taphouse').find('#state option:selected').val();
-        var zip = $('#add_taphouse').find('input[name="zip"]').val();
-        var queryString = `?name=${name}&street_address=${street_address}&city=${city}&state=${state}&zip=${zip}`;
-        $.get(serverURL + '/taphouses' + queryString).done(window.location = serverURL + '/taphouses');
+        if($('#add_taphouse').find('input[name="name"]').val() == "") {
+            alert("Invalid taphouse name, please try again");
+        } else {
+            var name = $('#add_taphouse').find('input[name="name"]').val();
+            var street_address = $('#add_taphouse').find('input[name="street_address"]').val();
+            var city = $('#add_taphouse').find('input[name="city"]').val();
+            var state = $('#add_taphouse').find('#state option:selected').val();
+            var zip = $('#add_taphouse').find('input[name="zip"]').val();
+            var queryString = `?name=${name}&street_address=${street_address}&city=${city}&state=${state}&zip=${zip}`;
+            console.log(queryString); 
+            $.get(serverURL + '/taphouses' + queryString).done(window.location = serverURL + '/taphouses');
+        }
     });
 
     $("#submitBrewery").on('click', function(event) {
@@ -31,7 +36,7 @@ $(document).ready(function() {
     $("#submitBeer").on('click', function(event) {
         event.preventDefault();
         if ($('#add_beer').find('input[name="name"]').val() == "") {
-            alert("Invalid brewery name, please try again");
+            alert("Invalid beer name, please try again");
         } else {
             var name = $('#add_beer').find('input[name="name"]').val();
             var type = $('#add_beer').find('input[name="type"]').val();

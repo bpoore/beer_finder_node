@@ -1,14 +1,11 @@
 var express = require('express');
 var hbs = require('hbs');
-var bodyParser = require('body-parser');
 
 var db = require('./dbqueries.js');
 
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
@@ -17,11 +14,17 @@ app.set('view engine', 'hbs');
 //Renders landing page for app
 app.get('/', function(req, res) {
     context = {};
-    db.getTaphouses().then(function(taphouses) {
-        db.getBeers().then(function(beers) {
-            context.beers = beers;
-            context.taphouses = taphouses;
-            res.render('home.hbs', context);
+    db.getAllBeerLocations().then(function(beers_by_taphouse) {
+        console.log(beers_by_taphouse);
+        console.log(JSON.stringify(beers_by_taphouse));
+        db.getTaphouses().then(function(taphouses) {
+            db.getBeers().then(function(beers) {
+                context.beers = beers;
+                context.taphouses = taphouses;
+                context.beer = beers[0];
+                context.beerByLoc = JSON.stringify(beers_by_taphouse);
+                res.render('home.hbs', context);
+            });
         });
     });
 });

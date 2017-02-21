@@ -169,3 +169,16 @@ exports.getBeerLocations = function(beer) {
         });
     });
 };
+
+exports.getAllBeerLocations = function() {
+    return new Promise(function(resolve, reject) {
+        pool.query(SQL `SELECT * FROM beer_on_tap`, function(err, results, fields) {
+            if (err) {
+                console.log(err);
+                console.log("Error getting beer locations.");
+                return;
+            }
+            resolve(results);
+        });
+    });
+};

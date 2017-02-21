@@ -3,9 +3,11 @@
 
 <head>
   {{> head}}
+  <script type="text/javascript" src="/js/now_on_tap.js" ></script>
+  <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB4K5LzsA1jeC_8krvameVyNCY9euxuvaU&v=3'></script>
 </head>
 
-<body>
+<body onload="initMap('{{beerByLoc}}')">
   <div class="container">
     {{> navbar}}
     <div class='jumbotron'>
@@ -18,6 +20,7 @@
           amongst all the locations currently serving beer and filling growlers.</p>
       </div>
     </div>
+    <div id="map" class="col-sm-offset-2" style="width: 750px; height: 450px"></div>
     <form class="form-horizontal" action="/on_tap">
       <fieldset class="form-group">
         <legend>Update What's On Tap by Location:</legend>
