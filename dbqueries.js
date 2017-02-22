@@ -132,28 +132,22 @@ exports.getBeersByTaphouse = function(taphouse) {
 };
 
 exports.addBeerToTaphouse = function(tap_id, beer_id, pintPrice, growlerPrice) {
-    //return new Promise(function(resolve, reject) {
     pool.query(SQL `INSERT INTO beer_on_tap(tap_id, beer_id, pintPrice, growlerPrice) VALUES (${tap_id},${beer_id},${pintPrice},${growlerPrice})`, function(err, results, fields) {
         if (err) {
             console.log(err);
             console.log("Error inserting into beer_on_tap table.");
             return;
         }
-        //  resolve(results);
-        //});
     });
 };
 
 exports.removeBeerFromTaphouse = function(id) {
-    //return new Promise(function(resolve, reject) {
     pool.query(SQL `DELETE FROM beer_on_tap WHERE id=${id}`, function(err, results, fields) {
         if (err) {
             console.log(err);
             console.log("Error deleting from beer_on_tap table.");
             return;
         }
-        //  resolve(results);
-        //});
     });
 };
 

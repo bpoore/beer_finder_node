@@ -16,20 +16,11 @@ app.set('view engine', 'hbs');
 //Renders landing page for app
 app.get('/', function(req, res) {
     context = {};
-
-    var markers = [{
-        lat: 45.523062,
-        lng: -122.676482, 
-        name: "Name",
-        address: "Address"
-      }];
-
     db.getAllBeerLocations().then(function(beers_by_taphouse) {
         db.getTaphouses().then(function(taphouses) {
             db.getBeers().then(function(beers) {
                 context.beers = beers;
                 context.taphouses = taphouses;
-                context.beer = beers[0];
                 context.beerByLoc = JSON.stringify(beers_by_taphouse);
                 context.taps = JSON.stringify(taphouses);
                 res.render('home.hbs', context);
@@ -60,13 +51,13 @@ app.get('/breweries', function(req, res) {
 
     if (req.query.name != undefined) {
         db.insertBrewery(req.query.name, req.query.city, req.query.state).then(function() {
-            db.getBreweries().then(function(results) {
-                context.breweries = results;
+            db.getBreweries().then(function(breweries) {
+                context.breweries = breweries;
                 res.render('breweries.hbs', context);
             });
         });
     } else {
-        db.getBreweries().then(function(results) {
+        db.getBreweries().then(function(breweries) {
             context.breweries = results;
             res.render('breweries.hbs', context);
         });
@@ -109,7 +100,7 @@ app.get('/on_tap', function(req, res) {
     }
 
     db.getBeersByTaphouse(req.query.taphouse_id).then(function(beers_by_taphouse) {
-        db.getTaphouse(req.query.taphouse_id).then(function(taphouse) { // Seemed like an extra query but necessary when no beers on tap at location
+        db.getTaphouse(req.query.taphouse_id).then(function(taphouse) {  // Seemed like an extra query but necessary when no beers on tap at location
             db.getBeers().then(function(beers) {
                 context.beers = beers;
                 context.beers_by_taphouse = beers_by_taphouse;
