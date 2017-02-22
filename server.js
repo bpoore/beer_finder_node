@@ -8,6 +8,7 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/bower_components'));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
